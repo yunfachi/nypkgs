@@ -1,26 +1,29 @@
 {
   description = "yunfachi's Nix Packages collection";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   outputs = {
     self,
     nixpkgs,
   }: let
+    # https://github.com/NixOS/nixpkgs/blob/master/lib/systems/flake-systems.nix
     systems = [
       "x86_64-linux"
-      "i686-linux"
-      "x86_64-darwin"
       "aarch64-linux"
+      "x86_64-darwin"
       "armv6l-linux"
       "armv7l-linux"
+      "i686-linux"
+      "mipsel-linux"
+      "aarch64-darwin"
+      "armv5tel-linux"
+      "powerpc64le-linux"
+      "riscv64-linux"
     ];
-    eachSystem = nixpkgs.lib.genAttrs (import systems);
-    pkgs = eachSystem (system: (nixpkgs.legacyPackages.${system}));
-    packagesFn = pkgs:
-      import ./default.nix {
-        inherit pkgs;
-      };
+    forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
-    packages = eachSystem (system: packagesFn pkgs.${system});
-    overlays.default = final: prev: packagesFn prev;
+    legacyPackages = forAllSystems (system:
+      import ./. {
+        inherit nixpkgs system;
+      });
   };
 }
