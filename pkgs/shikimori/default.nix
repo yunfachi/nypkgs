@@ -9,11 +9,12 @@
   # command line arguments which are always set e.g "--disable-gpu"
   commandLineArgs ? [],
 }: let
-  name = "shikimori";
+  pname = "shikimori";
+  version = "0.1.0";
 
   desktopItem = makeDesktopItem {
-    inherit name;
-    exec = name;
+    name = pname;
+    exec = pname;
     icon = fetchurl {
       name = "shikimori-logo.svg";
       url = "https://raw.githubusercontent.com/shikimori/shikimori/a6205d375bd10b581a98e2c37f0d5a380d624c50/app/assets/images/src/favicon.svg";
@@ -26,7 +27,7 @@
     startupNotify = true;
   };
 
-  script = writeScriptBin name ''
+  script = writeScriptBin pname ''
     #!${runtimeShell}
     exec ${ungoogled-chromium}/bin/${ungoogled-chromium.meta.mainProgram} ${lib.escapeShellArgs commandLineArgs} \
       --app=https://shikimori.one \
@@ -46,6 +47,7 @@
   };
 in
   symlinkJoin {
-    inherit name meta;
+    inherit meta;
+    name = pname;
     paths = [script desktopItem];
   }
