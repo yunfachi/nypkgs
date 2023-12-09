@@ -9,4 +9,6 @@
 in {
   yunfaavatar = pkgs.callPackage ./pkgs/yunfaavatar {};
   shikimori = pkgs.callPackage ./pkgs/shikimori {};
+
+  umport = import ./lib/umport.nix;
 }
