@@ -6,19 +6,35 @@ inputs @ {
 }: let
   currentFile = builtins.unsafeGetAttrPos "path" inputs;
 in
-  builtins.map (n: (
-    if copyToStore
-    then "${path}/${n}"
-    else toString path + "/${n}"
-  )) (builtins.attrNames (builtins.removeAttrs (builtins.readDir path) ((
-      if currentFile != null
-      then [(builtins.baseNameOf currentFile.file)]
-      else []
+  builtins.filter (x: x != null) (
+    builtins.map (
+      n: (
+        if
+          !(builtins.elem (path + "/${n}") (
+            if currentFile != null
+            then exclude ++ [(/. + "${currentFile.file}")]
+            else exclude
+          ))
+        then
+          (
+            if copyToStore
+            then "${path}/${n}"
+            else builtins.toString path + "/${n}"
+          )
+        else null
+      )
+    ) (
+      builtins.attrNames (
+        builtins.readDir path
+      )
     )
-    ++ (map (path: (builtins.baseNameOf path)) exclude))))
-  ++ builtins.map (n: (
-    if copyToStore
-    then "${n}"
-    else toString n
-  ))
+  )
+  ++ builtins.map
+  (
+    n: (
+      if copyToStore
+      then "${n}"
+      else toString n
+    )
+  )
   include
