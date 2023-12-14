@@ -1,4 +1,7 @@
 {
+  stdenvNoCC,
+  nodejs,
+  esbuild,
   fetchurl,
   ungoogled-chromium,
   lib,
@@ -27,15 +30,19 @@
     startupNotify = true;
   };
 
-  script = writeScriptBin pname ''
-    #!${runtimeShell}
-    exec ${ungoogled-chromium}/bin/${ungoogled-chromium.meta.mainProgram} ${lib.escapeShellArgs commandLineArgs} \
-      --app=https://shikimori.one \
-      --no-first-run \
-      --no-default-browser-check \
-      --no-crash-upload \
-      "$@"
-  '';
+  script = let
+    shikiplayer = import ./shikiplayer.nix {inherit stdenvNoCC nodejs esbuild;};
+  in
+    writeScriptBin pname ''
+      #!${runtimeShell}
+      exec ${ungoogled-chromium}/bin/${ungoogled-chromium.meta.mainProgram} ${lib.escapeShellArgs commandLineArgs} \
+        --app=https://shikimori.one \
+        --load-extension=${shikiplayer} \
+        --no-first-run \
+        --no-default-browser-check \
+        --no-crash-upload \
+        "$@"
+    '';
 
   meta = with lib; {
     description = "Shikimori is a Russian-language encyclopedia of anime, manga and light novels";
