@@ -7,6 +7,7 @@
     config.allowUnfree = true;
   };
 in {
+  canary = pkgs.callPackage ./pkgs/canary {};
   yunfaavatar = pkgs.callPackage ./pkgs/yunfaavatar {};
   shikimori = pkgs.callPackage ./pkgs/shikimori {};
 
