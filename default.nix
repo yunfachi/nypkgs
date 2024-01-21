@@ -1,21 +1,19 @@
 {
-  nixpkgs,
-  system,
+  nixpkgs ? <nixpkgs>,
+  system ? builtins.currentSystem,
 }: let
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
   };
-in {
-  canary = pkgs.callPackage ./pkgs/canary {};
-  shikimori = pkgs.callPackage ./pkgs/shikimori {};
-  yunfaavatar = pkgs.callPackage ./pkgs/yunfaavatar {};
-
-  sops-decrypt = args:
-    import ./lib/sops-decrypt.nix {
-      inherit (pkgs) sops age;
-      inherit (pkgs.stdenvNoCC) mkDerivation;
-      inherit (args) path publicAge privateAgeFile;
-    };
-  umport = import ./lib/umport.nix;
-}
+in
+  builtins.mapAttrs (
+    name: type:
+      pkgs.callPackage ./pkgs/${name} {}
+  ) (builtins.readDir ./pkgs)
+  // {
+    lib = builtins.listToAttrs (builtins.map (name: {
+      name = builtins.replaceStrings [".nix"] [""] name;
+      value = import ./lib/${name};
+    }) (builtins.attrNames (builtins.readDir ./lib)));
+  }

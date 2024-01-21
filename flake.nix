@@ -20,10 +20,15 @@
       "riscv64-linux"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
-  in {
+  in rec {
     legacyPackages = forAllSystems (system:
       import ./. {
         inherit nixpkgs system;
       });
+
+    lib = forAllSystems (
+      system:
+        legacyPackages.${system}.lib
+    );
   };
 }
