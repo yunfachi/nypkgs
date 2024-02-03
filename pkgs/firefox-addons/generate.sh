@@ -1,0 +1,1 @@
+nix run https://git.sr.ht/~rycee/mozilla-addons-to-nix/archive/master.tar.gz --extra-experimental-features 'flakes nix-command' -- addons.json generated.nix
