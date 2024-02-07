@@ -96,10 +96,17 @@ let
             ))
             ++ (
               builtins.map (
-                file: builtins.toString path + "/${file}"
+                file: (
+                  if copyToStore
+                  then "${path}/${file}"
+                  else builtins.toString path + "/${file}"
+                )
               ) (
                 builtins.attrNames (
-                  filterAttrs (name: type: type == "regular") objectsAttr
+                  filterAttrs (
+                    name: type: type == "regular" && !(builtins.elem (path + "/${name}") exclude)
+                  )
+                  objectsAttr
                 )
               )
             )
