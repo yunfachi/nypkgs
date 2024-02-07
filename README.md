@@ -1,4 +1,4 @@
-# nixpkgs-yunfachi
+# nypkgs
 yunfachi's Nix Packages collection
 
 # Installation
@@ -6,8 +6,8 @@ yunfachi's Nix Packages collection
 ```nix
 # flake.nix
 {
-  inputs.nixpkgs-yunfachi = {
-    url = "github:yunfachi/nixpkgs-yunfachi";
+  inputs.nypkgs = {
+    url = "github:yunfachi/nypkgs";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 }
