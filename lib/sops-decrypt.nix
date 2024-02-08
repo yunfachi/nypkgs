@@ -1,7 +1,7 @@
 {
-  age ? (import <nixpkgs> {}).age,
-  sops ? (import <nixpkgs> {}).sops,
-  mkDerivation ? (import <nixpkgs> {}).stdenvNoCC.mkDerivation,
+  age,
+  sops,
+  stdenvNoCC,
   ...
 }: {
   sops-decrypt = {
@@ -9,7 +9,7 @@
     publicAge,
     privateAgeFile,
   }: let
-    privateAgeFileModule = mkDerivation {
+    privateAgeFileModule = stdenvNoCC.mkDerivation {
       name = "privateAgeFile";
       src = privateAgeFile + "/..";
       buildPhase = ''
@@ -18,7 +18,7 @@
       '';
     };
   in
-    (mkDerivation {
+    (stdenvNoCC.mkDerivation {
       name = "sops-decrypt-${builtins.baseNameOf path}";
       src = path + "/..";
       env = {

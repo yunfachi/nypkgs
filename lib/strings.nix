@@ -1,4 +1,4 @@
-{lib ? (import <nixpkgs> {}).lib, ...}: {
+{lib, ...}: {
   concatLinesWithSemicolon = command:
     lib.concatStrings (builtins.map (line:
       if (lib.hasSuffix ";" line || line == "")

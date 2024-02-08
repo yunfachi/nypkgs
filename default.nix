@@ -27,7 +27,7 @@ in
           builtins.elemAt value 0
       ) (
         builtins.map (
-          path: import path {}
+          path: import path pkgs
         ) (umport {path = ./lib;})
       );
   }
