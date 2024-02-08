@@ -1,14 +1,16 @@
 {
-  nixpkgs ? import <nixpkgs> {},
+  nixpkgs ? <nixpkgs>,
   system ? builtins.currentSystem,
 }: let
   pkgs = import nixpkgs {
     inherit system;
     config.allowUnfree = true;
   };
+  lib = pkgs.lib;
   categories = [
     "firefox-addons"
   ];
+  umport = (import ./lib/umport.nix {}).umport;
 in
   builtins.mapAttrs (
     name: type: let
@@ -19,8 +21,13 @@ in
       else package
   ) (builtins.readDir ./pkgs)
   // {
-    lib = builtins.listToAttrs (builtins.map (name: {
-      name = builtins.replaceStrings [".nix"] [""] name;
-      value = import ./lib/${name};
-    }) (builtins.attrNames (builtins.readDir ./lib)));
+    lib = with lib;
+      zipAttrsWith (
+        name: value:
+          builtins.elemAt value 0
+      ) (
+        builtins.map (
+          path: import path {}
+        ) (umport {path = ./lib;})
+      );
   }
