@@ -105,7 +105,11 @@
                 ) (
                   builtins.attrNames (
                     filterAttrs (
-                      name: type: type == "regular" && !(builtins.elem (path + "/${name}") exclude)
+                      name: type:
+                        type
+                        == "regular"
+                        && !(builtins.elem (path + "/${name}") exclude)
+                        && (builtins.substring ((builtins.stringLength name) - 4) (builtins.stringLength name) name) == ".nix"
                     )
                     objectsAttr
                   )
