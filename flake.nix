@@ -23,7 +23,7 @@
   in rec {
     legacyPackages = forAllSystems (system:
       import ./. {
-        inherit nixpkgs system;
+        inherit nixpkgs system self;
       });
 
     lib = forAllSystems (

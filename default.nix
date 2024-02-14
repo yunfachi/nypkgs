@@ -1,6 +1,7 @@
 {
   nixpkgs ? <nixpkgs>,
   system ? builtins.currentSystem,
+  self,
 }: let
   pkgs = import nixpkgs {
     inherit system;
@@ -27,7 +28,9 @@ in
           builtins.elemAt value 0
       ) (
         builtins.map (
-          path: import path pkgs
+          path: import path ({
+            ylib = self.lib.${system};
+          } // pkgs)
         ) (umport {path = ./lib;})
       );
   }
