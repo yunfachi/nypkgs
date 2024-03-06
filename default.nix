@@ -11,7 +11,7 @@
   categories = [
     "firefox-addons"
   ];
-  umport = (import ./lib/umport.nix {}).umport;
+  umport = (import ./lib/umport.nix {inherit (pkgs) lib;}).umport;
 in
   builtins.mapAttrs (
     name: type: let
@@ -28,9 +28,11 @@ in
           builtins.elemAt value 0
       ) (
         builtins.map (
-          path: import path ({
-            ylib = self.lib.${system};
-          } // pkgs)
+          path:
+            import path ({
+                ylib = self.lib.${system};
+              }
+              // pkgs)
         ) (umport {path = ./lib;})
       );
   }

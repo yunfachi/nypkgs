@@ -1,140 +1,56 @@
-{...}: {
-  umport = let
-    filterAttrs = pred: set:
-      builtins.listToAttrs (builtins.concatMap (
-        name: let
-          v = set.${name};
-        in
-          if pred name v
-          then [
-            {
-              inherit name;
-              value = v;
-            }
-          ]
-          else []
-      ) (builtins.attrNames set));
-
-    umportRaw = inputs @ {
-      path,
-      include ? [],
-      exclude ? [],
-      copyToStore ? false,
-    }: let
-      currentFile = builtins.unsafeGetAttrPos "path" inputs;
+{lib, ...}: let
+  umport = inputs @ {
+    path ? null,
+    paths ? [],
+    include ? [],
+    exclude ? [],
+    recursive ? true,
+  }:
+    with lib;
+    with fileset; let
+      excludedFiles = filter (path: pathIsRegularFile path) exclude;
+      excludedDirs = filter (path: pathIsDirectory path) exclude;
+      isExcluded = path:
+        if elem path excludedFiles
+        then true
+        else (filter (excludedDir: lib.path.hasPrefix excludedDir path) excludedDirs) != [];
     in
-      builtins.filter (x: x != null) (
-        builtins.map (
-          n: (
-            if
-              !(builtins.elem (path + "/${n}") (
-                if currentFile != null
-                then exclude ++ [(/. + "${currentFile.file}")]
-                else exclude
-              ))
-            then
-              (
-                if copyToStore
-                then "${path}/${n}"
-                else builtins.toString path + "/${n}"
-              )
-            else null
-          )
-        ) (
-          builtins.attrNames (
-            filterAttrs (
-              name: type: (
-                if type == "regular"
-                then
+      unique (
+        (
+          filter
+          (file: pathIsRegularFile file && hasSuffix ".nix" (builtins.toString file) && !isExcluded file)
+          (concatMap (
+              _path:
+                if recursive
+                then toList _path
+                else
+                  mapAttrsToList (
+                    name: type:
+                      _path
+                      + (
+                        if type == "directory"
+                        then "/${name}/default.nix"
+                        else "/${name}"
+                      )
+                  )
                   (
-                    if (builtins.substring ((builtins.stringLength name) - 4) (builtins.stringLength name) name) == ".nix"
-                    then true
-                    else false
+                    if excludeDotPaths
+                    then removeDotPaths (builtins.readDir _path)
+                    else builtins.readDir _path
                   )
-                else true
-              )
-            ) (builtins.readDir path)
-          )
+            )
+            (unique (
+              if path == null
+              then paths
+              else [path] ++ paths
+            )))
         )
-      )
-      ++ builtins.map
-      (
-        n: (
-          if copyToStore
-          then "${n}"
-          else toString n
+        ++ (
+          if recursive
+          then concatMap (path: toList path) (unique include)
+          else unique include
         )
-      )
-      include;
-
-    umportRecursive = inputs @ {
-      path,
-      include ? [],
-      exclude ? [],
-      copyToStore ? false,
-      recursive ? false,
-    }: let
-      args = builtins.removeAttrs inputs ["recursive"];
-    in
-      if !recursive
-      then umportRaw args
-      else
-        (
-          let
-            objects = umportRaw args;
-            objectsAttr = builtins.readDir path;
-            objectsTypes = builtins.attrValues objectsAttr;
-          in
-            if builtins.elem "directory" objectsTypes
-            then
-              builtins.concatMap
-              (
-                object:
-                  umportRecursive (inputs // {path = path + "/${object}";})
-              )
-              (builtins.attrNames (
-                filterAttrs (name: type: type == "directory") objectsAttr
-              ))
-              ++ (
-                builtins.map (
-                  file: (
-                    if copyToStore
-                    then "${path}/${file}"
-                    else builtins.toString path + "/${file}"
-                  )
-                ) (
-                  builtins.attrNames (
-                    filterAttrs (
-                      name: type:
-                        type
-                        == "regular"
-                        && !(builtins.elem (path + "/${name}") exclude)
-                        && (builtins.substring ((builtins.stringLength name) - 4) (builtins.stringLength name) name) == ".nix"
-                    )
-                    objectsAttr
-                  )
-                )
-              )
-            else objects
-        );
-    umport = inputs @ {
-      path ? null,
-      paths ? [],
-      include ? [],
-      exclude ? [],
-      copyToStore ? false,
-      recursive ? false,
-    }: let
-      args = builtins.removeAttrs inputs ["paths"];
-    in
-      if paths != []
-      then
-        (
-          builtins.concatMap
-          (path: umportRecursive (args // {inherit path;}))
-          paths
-        )
-      else umportRecursive args;
-  in
-    umport;
+      );
+in {
+  inherit umport;
 }
