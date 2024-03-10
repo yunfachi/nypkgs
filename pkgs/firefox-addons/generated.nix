@@ -1,17 +1,17 @@
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
   {
-    "coffee_theme_firefox" = buildFirefoxXpiAddon {
-      pname = "coffee_theme_firefox";
-      version = "1.1";
-      addonId = "{b6eea96e-968f-4360-8592-76d23d3eee99}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3904641/coffee_theme_firefox-1.1.xpi";
-      sha256 = "f3ece3760bcbc13343fb20fecab2e03b744e43c1601d5e0771c646647a63b230";
+    "browser-mopidy-youtube" = buildFirefoxXpiAddon {
+      pname = "browser-mopidy-youtube";
+      version = "0.1.1";
+      addonId = "{0050e3fa-15cc-4fb6-9c73-7354489a810b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4247645/browser_mopidy_youtube-0.1.1.xpi";
+      sha256 = "147b20385fb6c96fd6955e315b4accd7730b4b0b25b0178832781fc62c26d18c";
       meta = with lib;
       {
-        homepage = "https://github.com/coffee-theme/coffee.firefox";
-        description = "Coffee is a nice, warm colour scheme for software based of gruvbox which is light on eye strain and feels warm and cozy -- firefox";
-        license = licenses.cc-by-nc-sa-30;
-        mozPermissions = [];
+        homepage = "https://github.com/yunfachi/browser-mopidy-youtube";
+        description = "Browser extension for adding active YouTube video to the mopidy queue";
+        license = licenses.mpl20;
+        mozPermissions = [ "activeTab" "storage" ];
         platforms = platforms.all;
       };
     };
