@@ -20,11 +20,19 @@
       "riscv64-linux"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
+    umport = (import ./lib/umport.nix {inherit (nixpkgs) lib;}).umport;
   in rec {
     legacyPackages = forAllSystems (system:
       import ./. {
         inherit nixpkgs system self;
       });
+
+    nixosModules = rec {
+      nypkgs = {
+        imports = umport {path = ./modules;};
+      };
+      default = nypkgs;
+    };
 
     lib = forAllSystems (
       system:
