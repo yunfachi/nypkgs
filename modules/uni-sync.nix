@@ -15,11 +15,47 @@ in {
 
     devices = mkOption {
       default = [];
-      description = mdDoc "List of controllers with configurations.";
+      example = literalExpression ''
+        [
+          {
+            device_id = "VID:1111/PID:11111/SN:1111111111";
+            sync_rgb = true;
+            channels = [
+              {
+                mode = "PWM";
+              }
+              {
+                mode = "Manual";
+                speed = 100;
+              }
+              {
+                mode = "Manual";
+                speed = 54;
+              }
+              {
+                mode = "Manual";
+                speed = 0;
+              }
+            ];
+          }
+          {
+            device_id = "VID:1010/PID:10101/SN:1010101010";
+            sync_rgb = false;
+            channels = [
+              {
+                mode = "Manual";
+                speed = 0;
+              }
+            ];
+          }
+        ]
+      '';
+      description = mdDoc "List of controllers with their configurations.";
       type = types.listOf (types.submodule {
         options = {
           device_id = mkOption {
             type = types.str;
+            example = "VID:1111/PID:11111/SN:1111111111";
             description = mdDoc "Unique device ID displayed at each startup.";
           };
           sync_rgb = mkOption {
