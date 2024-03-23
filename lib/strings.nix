@@ -13,8 +13,12 @@ with lib; rec {
     );
 
   concatLinesWithSemicolon = command:
-    lib.concatStrings (builtins.map (line:
-      if (lib.hasSuffix ";" line || line == "")
-      then line
-      else line + ";") (lib.splitString "\n" command));
+    concatMapStrings (
+      line:
+        if (strippedHasSuffix ";" line || line == "")
+        then line
+        else if (strippedHasSuffix "\\" line)
+        then strippedRemoveSuffix "\\" line
+        else line + ";"
+    ) (splitString "\n" command);
 }
