@@ -2,16 +2,38 @@
   {
     "browser-mopidy-youtube" = buildFirefoxXpiAddon {
       pname = "browser-mopidy-youtube";
-      version = "0.1.2";
+      version = "0.2.0";
       addonId = "{0050e3fa-15cc-4fb6-9c73-7354489a810b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4250272/browser_mopidy_youtube-0.1.2.xpi";
-      sha256 = "1f71b011329654063b8f75e04be8ee1c3cc8a40bf2c98d8e96c1769178cad5ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4254224/browser_mopidy_youtube-0.2.0.xpi";
+      sha256 = "b81fa88a5c59d50a04fc5767001492fda5017c8cf871700abf5b3e51791af7d6";
       meta = with lib;
       {
         homepage = "https://github.com/yunfachi/browser-mopidy-youtube";
         description = "Browser extension for adding active YouTube video to the mopidy queue";
         license = licenses.mpl20;
         mozPermissions = [ "activeTab" "storage" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
+    "deshiro" = buildFirefoxXpiAddon {
+      pname = "deshiro";
+      version = "0.4.2";
+      addonId = "{e75d9f2d-9270-4f16-94e1-abd73c5174f8}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4256242/deshiro-0.4.2.xpi";
+      sha256 = "4ca1cf45328063b0c8e9ffafd086140c8ec5cc98123c4b8daf39d1ba9ac996ff";
+      meta = with lib;
+      {
+        homepage = "https://github.com/deshiro/browser-extension";
+        description = "The Deshiro browser extension for the Shikimori website";
+        mozPermissions = [
+          "*://deshiro.pages.dev/*"
+          "*://kodikapi.com/*"
+          "nativeMessaging"
+          "activeTab"
+          "storage"
+          "*://*.shikimori.one/*"
+          "*://*.shikimori.me/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -26,26 +48,6 @@
         description = "flat theme to go with the sepia dark mode option of dark reader\ndark brown, khaki, grey, black, solarised, solarized tones";
         license = licenses.cc-by-nc-sa-30;
         mozPermissions = [];
-        platforms = platforms.all;
-      };
-    };
-    "shikiplayer" = buildFirefoxXpiAddon {
-      pname = "shikiplayer";
-      version = "5.4.0";
-      addonId = "{e6624e6b-2351-4a1d-b7b7-c714fffee424}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4226497/shikiplayer-5.4.0.xpi";
-      sha256 = "0d73515982b273e1ce01795922703bc55124ac10ff78450b8987ec306e12ac6a";
-      meta = with lib;
-      {
-        homepage = "https://github.com/qt-kaneko/Shikiplayer";
-        description = "Adds Kodik player to Shikimori website";
-        mozPermissions = [
-          "*://kodikapi.com/*"
-          "*://raw.githubusercontent.com/*"
-          "*://shikimori.me/*"
-          "*://shikimori.one/*"
-          "*://kodik.info/*"
-        ];
         platforms = platforms.all;
       };
     };
