@@ -2,31 +2,50 @@
   age,
   sops,
   stdenvNoCC,
+  lib,
+  linkFarm,
   ...
 }: {
   sops-decrypt = {
     path,
-    publicAge,
-    privateAgeFile,
-  }: let
-    privateAgeFileModule = stdenvNoCC.mkDerivation {
-      name = "privateAgeFile";
-      src = privateAgeFile + "/..";
-      buildPhase = ''
-        mkdir $out
-        cp ${builtins.baseNameOf privateAgeFile} $out/keys.txt
-      '';
-    };
-  in
+    publicAge ? null,
+    privateKeysFile,
+    key ? "",
+  }:
     (stdenvNoCC.mkDerivation {
       name = "sops-decrypt-${builtins.baseNameOf path}";
-      src = path + "/..";
-      env = {
-        SOPS_AGE_KEY_FILE = privateAgeFileModule + "/keys.txt";
-      };
+      src = linkFarm "sops-decrypt-src" (
+        [
+          {
+            name = baseNameOf path;
+            inherit path;
+          }
+          {
+            name = "keys.txt";
+            path = privateKeysFile;
+          }
+        ]
+        ++ (
+          if (builtins.pathExists (path + "/../.sops.yaml"))
+          then [
+            {
+              name = "sops.yaml";
+              path = path + "/../.sops.yaml";
+            }
+          ]
+          else []
+        )
+      );
       buildInputs = [age sops];
-      buildPhase = ''
-        sops --age "${publicAge}" --decrypt "./${builtins.baseNameOf path}" > "$out"
+      buildPhase = with lib; let
+        ageArg = optionalString (publicAge != null) "--age '${publicAge}'";
+        extractArg = optionalString (key != "") "--extract '${
+          lib.concatMapStrings (x: ''["${x}"]'') (lib.splitString "/" key)
+        }'";
+      in ''
+        export SOPS_AGE_KEY_FILE=keys.txt;
+
+        sops ${ageArg} ${extractArg} --decrypt "./${baseNameOf path}" > $out
       '';
     })
     .outPath;
