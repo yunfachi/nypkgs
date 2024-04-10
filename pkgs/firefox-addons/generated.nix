@@ -17,10 +17,10 @@
     };
     "deshiro" = buildFirefoxXpiAddon {
       pname = "deshiro";
-      version = "0.5.0";
+      version = "0.5.1";
       addonId = "{e75d9f2d-9270-4f16-94e1-abd73c5174f8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4260931/deshiro-0.5.0.xpi";
-      sha256 = "38d049eb59d9d94da54da61d998e5a27b35ed838d95388f0c2f86d3ec05a2a84";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4261826/deshiro-0.5.1.xpi";
+      sha256 = "15cbb709ed587a681cd98a1dd3f95212812112302ea7927204ff37ced059f2e4";
       meta = with lib;
       {
         homepage = "https://github.com/deshiro/browser-extension";
