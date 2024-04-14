@@ -11,13 +11,13 @@
 }:
 gcc13Stdenv.mkDerivation rec {
   pname = "split-monitor-workspaces";
-  version = "0.1";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "Duckonaut";
     repo = pname;
-    rev = "d0012b8b0f764e32dd7b82f7a94b8c30197d7dc8";
-    hash = "sha256-3qcLLe+LqC1YAdqpKtU1COlxzb5uqpTMYgwmleS2oRg=";
+    rev = "be857d4415c136bccdd1c255cbf2c062c730cc38";
+    hash = "sha256-e92Hf6+2URgQ06FV4rrVtHLMNug8F2jHpptduZ/qiXg=";
   };
 
   BUILT_WITH_NOXWAYLAND = false;
