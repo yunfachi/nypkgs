@@ -25,16 +25,16 @@
             path = privateKeysFile;
           }
         ]
-        ++ (
-          if (builtins.pathExists (path + "/../.sops.yaml"))
-          then [
-            {
-              name = "sops.yaml";
-              path = path + "/../.sops.yaml";
-            }
-          ]
-          else []
-        )
+        #++ (
+        #  if (builtins.pathExists (path + "/../.sops.yaml"))
+        #  then [
+        #    {
+        #      name = "sops.yaml";
+        #      path = path + "/../.sops.yaml";
+        #    }
+        #  ]
+        #  else []
+        #)
       );
       buildInputs = [age sops];
       buildPhase = with lib; let
