@@ -16,8 +16,8 @@ gcc13Stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Duckonaut";
     repo = pname;
-    rev = "f7a306396da163422048fd38eecd92c68ce21e58";
-    hash = "sha256-P4sDyicbLlc8YmMy7p2RfDshsuShfZgpIlOx3hRWvGs=";
+    rev = "b0ee3953eaeba70f3fba7c4368987d727779826a";
+    hash = "sha256-M9nGSYBieZNg/OgLqL7bX0S9Khlh4MFca0euGKwbuG4=";
   };
 
   BUILT_WITH_NOXWAYLAND = false;
