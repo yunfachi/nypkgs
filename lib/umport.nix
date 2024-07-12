@@ -33,11 +33,7 @@
                         else "/${name}"
                       )
                   )
-                  (
-                    if excludeDotPaths
-                    then removeDotPaths (builtins.readDir _path)
-                    else builtins.readDir _path
-                  )
+                  (builtins.readDir _path)
             )
             (unique (
               if path == null
