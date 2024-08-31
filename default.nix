@@ -33,6 +33,9 @@ in
                 ylib = self.lib.${system};
               }
               // pkgs)
-        ) (umport {path = ./lib;})
+        ) (umport {
+          path = ./lib;
+          recursive = false;
+        })
       );
   }
