@@ -11,13 +11,13 @@
 }:
 gcc13Stdenv.mkDerivation rec {
   pname = "split-monitor-workspaces";
-  version = "1.1.0";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "Duckonaut";
     repo = pname;
-    rev = "a03a32c6e0f64c05c093ced864a326b4ab58eabf";
-    hash = "sha256-JeTl1RMgtN77JwufVmZko0ixpnnsZwcdpcPVWX+gdw0=";
+    rev = "b6bc0c26c8ad9e08f5f29249f8511e6f01e92e09";
+    hash = "sha256-uYDB0uXSgmEk2syJ9Et0q3RTIBtEHelcM6T8OT222fg=";
   };
 
   BUILT_WITH_NOXWAYLAND = false;
@@ -31,11 +31,11 @@ gcc13Stdenv.mkDerivation rec {
     ]
     ++ hyprland.buildInputs;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/Duckonaut/split-monitor-workspaces";
-    description = "A small Hyprland plugin to provide awesome-like workspace behavior";
-    license = licenses.bsd3;
+    description = "Small Hyprland plugin to provide awesome-like workspace behavior";
+    license = lib.licenses.bsd3;
     platforms = hyprland.meta.platforms;
-    maintainers = with maintainers; [yunfachi];
+    maintainers = with lib.maintainers; [yunfachi];
   };
 }
