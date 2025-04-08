@@ -1,3 +1,10 @@
+# This file is copied from:
+# https://github.com/yunfachi/nypkgs/blob/master/lib/umport.nix
+#
+# !!! REMOVING THIS FILE VIOLATES THE MIT LICENSE !!!
+# This notice must be retained in all copies of this file, including modified versions!
+# The MIT License can be found here:
+# https://github.com/yunfachi/nypkgs/blob/master/LICENSE
 {lib, ...}: let
   umport = inputs @ {
     path ? null,
