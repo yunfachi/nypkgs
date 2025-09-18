@@ -1,5 +1,9 @@
 [
   { "slug": "deshiro" },
   { "slug": "browser-mopidy-youtube" },
-  { "slug": "sepia-coffee-v1" }
+  { "slug": "ublock-origin" },
+  { "slug": "bitwarden-password-manager" },
+  { "slug": "yomitan" },
+  { "slug": "history-cleaner" },
+  { "slug": "new-tab-homepage" }
 ]
