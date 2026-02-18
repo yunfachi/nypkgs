@@ -2,10 +2,10 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "2025.8.2";
+      version = "2025.12.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4567044/bitwarden_password_manager-2025.8.2.xpi";
-      sha256 = "0a6d986010d4845454083e2a02f81667b43dd7e4901693f4a7d0e7c67d9f7ffb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4664623/bitwarden_password_manager-2025.12.1.xpi";
+      sha256 = "a7a123eee4e40fdd8af7c0c67243731ddcc37ae1498cf2828995f4905600c51f";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -48,22 +48,23 @@
     };
     "deshiro" = buildFirefoxXpiAddon {
       pname = "deshiro";
-      version = "0.5.2";
+      version = "0.5.5";
       addonId = "{e75d9f2d-9270-4f16-94e1-abd73c5174f8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4264100/deshiro-0.5.2.xpi";
-      sha256 = "76e7a61931a8a1c8f69a80dff2ddc61241f6ee7158dba86e70cbbbdb15f9f620";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4697848/deshiro-0.5.5.xpi";
+      sha256 = "d879eeead6d755050a0e35bad603e85df4906bdf6689d67d202b5f66c813cd12";
       meta = with lib;
       {
         homepage = "https://github.com/deshiro/browser-extension";
         description = "The Deshiro browser extension for the Shikimori website";
         mozPermissions = [
-          "*://deshiro.pages.dev/*"
+          "*://*.shiki.one/*"
+          "*://*.shikimori.one/*"
+          "*://*.shikimori.me/*"
+          "*://deshiro.ynf.sh/*"
           "*://kodikapi.com/*"
           "nativeMessaging"
           "activeTab"
           "storage"
-          "*://*.shikimori.one/*"
-          "*://*.shikimori.me/*"
         ];
         platforms = platforms.all;
       };
@@ -99,10 +100,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.66.0";
+      version = "1.69.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4573289/ublock_origin-1.66.0.xpi";
-      sha256 = "155820bace5bf7c8ba547e27678a4a25251131c54904f02f5bf340996f6fdbdc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4675310/ublock_origin-1.69.0.xpi";
+      sha256 = "785bcde68a25faa8a0949964ec5ffe9bdcb85d3f0ae21c23f607c6c8f91472cf";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -138,10 +139,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "25.8.27.0";
+      version = "26.1.19.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4569735/yomitan-25.8.27.0.xpi";
-      sha256 = "4b0d5b71c7bf193917709cd3ada4950b9a3ae6daf13ab7b6dad366d596411cf5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4676339/yomitan-26.1.19.0.xpi";
+      sha256 = "f028b81d315a92739c1985f1228753c02f4efb98b9ffe1fb4f00e9e81fcecac0";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
