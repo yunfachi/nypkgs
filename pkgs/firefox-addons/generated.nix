@@ -2,10 +2,10 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "2025.12.1";
+      version = "2026.1.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4664623/bitwarden_password_manager-2025.12.1.xpi";
-      sha256 = "a7a123eee4e40fdd8af7c0c67243731ddcc37ae1498cf2828995f4905600c51f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4698131/bitwarden_password_manager-2026.1.1.xpi";
+      sha256 = "6143af5d61d95021fcdd6939ab8c18f9535f775c80d4b69f75d1d238f81ae347";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -48,15 +48,16 @@
     };
     "deshiro" = buildFirefoxXpiAddon {
       pname = "deshiro";
-      version = "0.5.5";
+      version = "0.5.6";
       addonId = "{e75d9f2d-9270-4f16-94e1-abd73c5174f8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4697848/deshiro-0.5.5.xpi";
-      sha256 = "d879eeead6d755050a0e35bad603e85df4906bdf6689d67d202b5f66c813cd12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4706092/deshiro-0.5.6.xpi";
+      sha256 = "09b2f63a26c22f37736e9805eb1c573fa7e2d9ed13ccef42ba93bf1f6ce8569d";
       meta = with lib;
       {
         homepage = "https://github.com/deshiro/browser-extension";
         description = "The Deshiro browser extension for the Shikimori website";
         mozPermissions = [
+          "*://*.shikimori.io/*"
           "*://*.shiki.one/*"
           "*://*.shikimori.one/*"
           "*://*.shikimori.me/*"
