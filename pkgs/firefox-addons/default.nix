@@ -3,7 +3,7 @@
   lib,
   stdenv,
 } @ args: let
-  buildFirefoxXpiAddon = lib.makeOverridable ({
+  buildMozillaXpiAddon = lib.makeOverridable ({
     stdenv ? args.stdenv,
     fetchurl ? args.fetchurl,
     pname,
@@ -34,5 +34,5 @@
     });
 in
   import ./generated.nix {
-    inherit buildFirefoxXpiAddon fetchurl lib stdenv;
+    inherit buildMozillaXpiAddon fetchurl lib stdenv;
   }
