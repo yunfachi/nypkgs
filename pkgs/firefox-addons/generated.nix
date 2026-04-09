@@ -1,11 +1,11 @@
-{ buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
+{ buildMozillaXpiAddon, fetchurl, lib, stdenv }:
   {
-    "bitwarden-password-manager" = buildFirefoxXpiAddon {
+    "bitwarden-password-manager" = buildMozillaXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "2026.1.1";
+      version = "2026.3.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4698131/bitwarden_password_manager-2026.1.1.xpi";
-      sha256 = "6143af5d61d95021fcdd6939ab8c18f9535f775c80d4b69f75d1d238f81ae347";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4749958/bitwarden_password_manager-2026.3.0.xpi";
+      sha256 = "2dc6d074d4dc0abd2a8966f5065a55e7252bbf5e54b23c31dbedabfac0d4dbc4";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -31,7 +31,7 @@
         platforms = platforms.all;
       };
     };
-    "browser-mopidy-youtube" = buildFirefoxXpiAddon {
+    "browser-mopidy-youtube" = buildMozillaXpiAddon {
       pname = "browser-mopidy-youtube";
       version = "0.2.0";
       addonId = "{0050e3fa-15cc-4fb6-9c73-7354489a810b}";
@@ -46,12 +46,12 @@
         platforms = platforms.all;
       };
     };
-    "deshiro" = buildFirefoxXpiAddon {
+    "deshiro" = buildMozillaXpiAddon {
       pname = "deshiro";
-      version = "0.5.6";
+      version = "0.5.7";
       addonId = "{e75d9f2d-9270-4f16-94e1-abd73c5174f8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4706092/deshiro-0.5.6.xpi";
-      sha256 = "09b2f63a26c22f37736e9805eb1c573fa7e2d9ed13ccef42ba93bf1f6ce8569d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4758806/deshiro-0.5.7.xpi";
+      sha256 = "2c607ef48aaca0c16248e38b3248593b9123865cb679e47799a4e2390cb033ec";
       meta = with lib;
       {
         homepage = "https://github.com/deshiro/browser-extension";
@@ -63,6 +63,7 @@
           "*://*.shikimori.me/*"
           "*://deshiro.ynf.sh/*"
           "*://kodikapi.com/*"
+          "*://kodik-api.com/*"
           "nativeMessaging"
           "activeTab"
           "storage"
@@ -70,7 +71,7 @@
         platforms = platforms.all;
       };
     };
-    "history-cleaner" = buildFirefoxXpiAddon {
+    "history-cleaner" = buildMozillaXpiAddon {
       pname = "history-cleaner";
       version = "1.7.0";
       addonId = "{a138007c-5ff6-4d10-83d9-0afaf0efbe5e}";
@@ -85,7 +86,7 @@
         platforms = platforms.all;
       };
     };
-    "new-tab-homepage" = buildFirefoxXpiAddon {
+    "new-tab-homepage" = buildMozillaXpiAddon {
       pname = "new-tab-homepage";
       version = "0.6.3resigned1";
       addonId = "{66E978CD-981F-47DF-AC42-E3CF417C1467}";
@@ -99,12 +100,12 @@
         platforms = platforms.all;
       };
     };
-    "ublock-origin" = buildFirefoxXpiAddon {
+    "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.69.0";
+      version = "1.70.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4675310/ublock_origin-1.69.0.xpi";
-      sha256 = "785bcde68a25faa8a0949964ec5ffe9bdcb85d3f0ae21c23f607c6c8f91472cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4721638/ublock_origin-1.70.0.xpi";
+      sha256 = "f2730d2877005763a45d765749892e936f49cae713d28f7aa6ea314454b89cf1";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -138,12 +139,12 @@
         platforms = platforms.all;
       };
     };
-    "yomitan" = buildFirefoxXpiAddon {
+    "yomitan" = buildMozillaXpiAddon {
       pname = "yomitan";
-      version = "26.1.19.0";
+      version = "26.3.30.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4676339/yomitan-26.1.19.0.xpi";
-      sha256 = "f028b81d315a92739c1985f1228753c02f4efb98b9ffe1fb4f00e9e81fcecac0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4755102/yomitan-26.3.30.0.xpi";
+      sha256 = "8f4b3610f683dbdb1f0ee4103c12ab0be76b7ca6aca41126971095b0450e63fc";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
